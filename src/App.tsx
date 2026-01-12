@@ -1,13 +1,12 @@
-// src/App.tsx
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
-import Landing from "./pages/Landing";
-import Login from "./pages/Login";
+import Landing from "./components/pages/Landing";
+import Login from "./components/pages/Login";
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Header />
 
       <main className="container">
@@ -18,7 +17,7 @@ function App() {
       </main>
 
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
 

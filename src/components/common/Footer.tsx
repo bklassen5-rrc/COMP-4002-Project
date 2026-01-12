@@ -1,4 +1,3 @@
-// src/components/common/Footer.tsx
 function Footer() {
   return (
     <footer style={{ marginTop: "2rem", padding: "1rem", textAlign: "center" }}>
