@@ -10,6 +10,11 @@ background #506179
 
 title page/login page:
 
+- logo in big at the top
+- light blue login buttons on dark blue background
+- looks scary
+- spider webs
+- eyes blinking at you
 
 
 ## Fonts
