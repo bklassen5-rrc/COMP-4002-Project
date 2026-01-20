@@ -7,6 +7,7 @@ function Header() {
         <Link to="/" style={{ color: "white" }}>Home</Link>
         <Link to="/login" style={{ color: "white" }}>Login</Link>
         <Link to="/battle" style={{ color: "white" }}>BattleScreen</Link>
+        <Link to="/victory" style={{ color: "white" }}>Victory</Link>
       </nav>
     </header>
   );
