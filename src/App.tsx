@@ -6,7 +6,6 @@ import Login from "./components/pages/Login/Login";
 import BattleScreen from "./components/pages/battlescreen/Battlescreen";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
