@@ -6,6 +6,8 @@ import Login from "./components/pages/Login";
 import BattleScreen from "./components/pages/battlescreen/Battlescreen";
 
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
     <>
       <Header />
@@ -20,7 +22,7 @@ function App() {
 
       <Footer />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
