@@ -6,6 +6,7 @@ function Header() {
       <nav style={{ display: "flex", gap: "1rem" }}>
         <Link to="/" style={{ color: "white" }}>Home</Link>
         <Link to="/login" style={{ color: "white" }}>Login</Link>
+        <Link to="/battle" style={{ color: "white" }}>BattleScreen</Link>
       </nav>
     </header>
   );
