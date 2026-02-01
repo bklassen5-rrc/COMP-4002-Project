@@ -63,35 +63,6 @@
   animation: flicker 3s infinite;
 }
 
-@keyframes flicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.95; }
-  51% { opacity: 1; }
-  52% { opacity: 0.98; }
-}
-
-.spooky-eyes {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-bottom: 1rem;
-}
-
-.eye {
-  font-size: 2rem;
-  animation: blink 4s infinite;
-  filter: drop-shadow(0 0 5px rgba(245, 213, 137, 0.6));
-}
-
-.eye:nth-child(2) {
-  animation-delay: 2s;
-}
-
-@keyframes blink {
-  0%, 96%, 100% { opacity: 1; }
-  98% { opacity: 0; }
-}
-
 .success-message {
   padding: 1rem;
   margin-bottom: 1rem;
@@ -112,17 +83,6 @@
   background: linear-gradient(135deg, #5a2d2d 0%, #6a3d3d 100%);
   border-color: #f58989;
   box-shadow: 0 0 15px rgba(245, 137, 137, 0.3);
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .user-count {
@@ -249,19 +209,10 @@
 
 /* Additional spooky decoration */
 .login-container::after {
-  content: '🕷️';
   position: absolute;
   top: 20px;
   left: 20px;
   font-size: 1.5rem;
   opacity: 0.3;
   animation: crawl 10s infinite linear;
-}
-
-@keyframes crawl {
-  0% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(50px, 30px) rotate(90deg); }
-  50% { transform: translate(100px, 10px) rotate(180deg); }
-  75% { transform: translate(50px, -20px) rotate(270deg); }
-  100% { transform: translate(0, 0) rotate(360deg); }
 }
