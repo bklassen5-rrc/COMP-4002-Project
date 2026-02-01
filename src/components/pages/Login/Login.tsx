@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SavedLogins from "./Savedlogins";
-import type { SavedUser } from "./Savedlogins"
+import SavedLogins, { type SavedUser } from "./SavedLogins";
+import { useUser } from "../../common/usercontext/usercontext";
 import "./Login.css";
 
 // Initial hardcoded saved users (until Clerk implementation in Sprint 5)
@@ -12,6 +12,7 @@ const INITIAL_SAVED_USERS: SavedUser[] = [
 ];
 
 function Login() {
+  const { setUsername: setGlobalUsername } = useUser();
   const [signup, setSignup] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ function Login() {
 
   const handleDeleteUser = (userId: string) => {
     setSavedUsers(prev => prev.filter(user => user.id !== userId));
-    setSuccessMessage("User removed from saved logins");
+    setSuccessMessage("🗑️ User removed from saved logins");
     setTimeout(() => setSuccessMessage(""), 2000);
   };
 
@@ -67,19 +68,21 @@ function Login() {
       }, 2000);
       
     } else {
-      // Login logic (placeholder for Sprint 5 Clerk integration)
+      // Login logic
       const userExists = savedUsers.find(
         user => user.username.toLowerCase() === username.toLowerCase() && 
                 user.email.toLowerCase() === email.toLowerCase()
       );
 
       if (userExists) {
+        // Set username in global state
+        setGlobalUsername(username);
         setSuccessMessage("✅ Login successful!");
+        setTimeout(() => setSuccessMessage(""), 2000);
       } else {
         setSuccessMessage("❌ Invalid credentials!");
+        setTimeout(() => setSuccessMessage(""), 3000);
       }
-
-      setTimeout(() => setSuccessMessage(""), 3000);
     }
   };
 
@@ -145,7 +148,7 @@ function Login() {
 
       {!signup && savedUsers.length > 4 && (
         <p className="user-count">
-          {savedUsers.length} users registered
+          {savedUsers.length} Users Registered
         </p>
       )}
     </div>

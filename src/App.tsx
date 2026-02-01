@@ -4,13 +4,14 @@ import Footer from "./components/common/Footer";
 import Landing from "./components/pages/Landing";
 import Login from "./components/pages/Login/Login";
 import BattleScreen from "./components/pages/battlescreen/Battlescreen";
+import { UserProvider } from "./components/common/usercontext/usercontext";
 
 function App() {
 
   return (
     <>
+    <UserProvider>
       <Header />
-
       <main className="container">
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -20,6 +21,7 @@ function App() {
       </main>
 
       <Footer />
+      </UserProvider>
     </>
   )
 }

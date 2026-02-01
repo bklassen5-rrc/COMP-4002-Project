@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import UserAvatar from "./usercontext/useravatar";
 
 function Header() {
   return (
@@ -8,6 +9,9 @@ function Header() {
         <Link to="/login" style={{ color: "white" }}>Login</Link>
         <Link to="/battle" style={{ color: "white" }}>BattleScreen</Link>
       </nav>
+      <div style={{ marginLeft: "auto" }}>
+        <UserAvatar />
+      </div>
     </header>
   );
 }
