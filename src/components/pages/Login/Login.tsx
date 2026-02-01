@@ -24,6 +24,12 @@ function Login() {
     setEmail(selectedEmail);
   };
 
+  const handleDeleteUser = (userId: string) => {
+    setSavedUsers(prev => prev.filter(user => user.id !== userId));
+    setSuccessMessage("User removed from saved logins");
+    setTimeout(() => setSuccessMessage(""), 2000);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -50,7 +56,7 @@ function Login() {
       setSavedUsers(prev => [...prev, newUser]);
       
       // Show success message
-      setSuccessMessage("Account created successfully! Switch to Login to use it.");
+      setSuccessMessage("✨ Account created successfully! Switch to Login to use it.");
       
       // Clear form and reset after 2 seconds
       setTimeout(() => {
@@ -68,9 +74,9 @@ function Login() {
       );
 
       if (userExists) {
-        setSuccessMessage("Login successful!");
+        setSuccessMessage("✅ Login successful!");
       } else {
-        setSuccessMessage("Invalid credentials!");
+        setSuccessMessage("❌ Invalid credentials!");
       }
 
       setTimeout(() => setSuccessMessage(""), 3000);
@@ -100,7 +106,8 @@ function Login() {
       {!signup && (
         <SavedLogins 
           savedUsers={savedUsers} 
-          onSelectUser={handleSavedUserSelect} 
+          onSelectUser={handleSavedUserSelect}
+          onDeleteUser={handleDeleteUser}
         />
       )}
 
@@ -138,7 +145,7 @@ function Login() {
 
       {!signup && savedUsers.length > 4 && (
         <p className="user-count">
-          {savedUsers.length} Users Registered
+          {savedUsers.length} users registered
         </p>
       )}
     </div>

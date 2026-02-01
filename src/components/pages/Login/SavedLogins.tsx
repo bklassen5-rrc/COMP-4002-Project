@@ -11,9 +11,10 @@ export interface SavedUser {
 interface SavedLoginsProps {
   savedUsers: SavedUser[];
   onSelectUser: (username: string, email: string) => void;
+  onDeleteUser: (userId: string) => void;
 }
 
-function SavedLogins({ savedUsers, onSelectUser }: SavedLoginsProps) {
+function SavedLogins({ savedUsers, onSelectUser, onDeleteUser }: SavedLoginsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<SavedUser | null>(null);
 
@@ -21,6 +22,15 @@ function SavedLogins({ savedUsers, onSelectUser }: SavedLoginsProps) {
     setSelectedUser(user);
     onSelectUser(user.username, user.email);
     setIsOpen(false);
+  };
+
+  const handleDeleteUser = (e: React.MouseEvent, userId: string) => {
+    e.stopPropagation(); // Prevent selecting the user when clicking delete
+    onDeleteUser(userId);
+    // Reset selected user if it was deleted
+    if (selectedUser?.id === userId) {
+      setSelectedUser(null);
+    }
   };
 
   if (savedUsers.length === 0) {
@@ -53,6 +63,14 @@ function SavedLogins({ savedUsers, onSelectUser }: SavedLoginsProps) {
                 <div className="user-name">{user.username}</div>
                 <div className="user-email">{user.email}</div>
               </div>
+              <button
+                type="button"
+                className="delete-user-btn"
+                onClick={(e) => handleDeleteUser(e, user.id)}
+                aria-label="Delete user"
+              >
+                ✕
+              </button>
             </button>
           ))}
         </div>
