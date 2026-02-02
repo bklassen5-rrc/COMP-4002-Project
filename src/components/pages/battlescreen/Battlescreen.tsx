@@ -1,5 +1,13 @@
+import { useState } from "react";
 import AllyIcon from "./AllyIcon";
+import BattleLog from "./Battlelog";
+import MovesPanel from "./MovesPanel";
 import "./BattleScreen.css";
+
+interface LogMessage {
+    id: number;
+    type: 'system' | 'ally' | 'enemy' 
+}
 
 function BattleScreen() {
     return (
