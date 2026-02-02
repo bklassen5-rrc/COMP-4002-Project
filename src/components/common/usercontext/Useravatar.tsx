@@ -1,4 +1,4 @@
-import { useUser } from "./usercontext";
+import { useUser } from "./UserContext";
 import "./UserAvatar.css";
 
 function UserAvatar() {

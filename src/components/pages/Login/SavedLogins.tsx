@@ -44,7 +44,6 @@ function SavedLogins({ savedUsers, onSelectUser, onDeleteUser }: SavedLoginsProp
         className="saved-logins-toggle"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="saved-logins-icon">👤</span>
         {selectedUser ? selectedUser.username : "Select Saved Login"}
         <span className={`dropdown-arrow ${isOpen ? "open" : ""}`}>▼</span>
       </button>
@@ -58,7 +57,7 @@ function SavedLogins({ savedUsers, onSelectUser, onDeleteUser }: SavedLoginsProp
               className="saved-login-item"
               onClick={() => handleSelectUser(user)}
             >
-              <div className="user-avatar">👻</div>
+              <div className="user-avatar">{user.username ? user.username.charAt(0).toUpperCase() : "?"}</div>
               <div className="user-info">
                 <div className="user-name">{user.username}</div>
                 <div className="user-email">{user.email}</div>

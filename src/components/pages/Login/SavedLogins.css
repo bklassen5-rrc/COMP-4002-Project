@@ -28,10 +28,6 @@
   box-shadow: 0 0 10px rgba(245, 213, 137, 0.3);
 }
 
-.saved-logins-icon {
-  font-size: 1.2rem;
-}
-
 .dropdown-arrow {
   transition: transform 0.3s ease;
   color: #f5d589;
@@ -138,7 +134,7 @@
   font-family: 'Nobility Casual', sans-serif;
 }
 
-/* Scrollbar styling for spooky theme */
+/* Scrollbar styling*/
 .saved-logins-dropdown::-webkit-scrollbar {
   width: 8px;
 }

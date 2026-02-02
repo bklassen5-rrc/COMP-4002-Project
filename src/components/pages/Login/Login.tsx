@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SavedLogins, { type SavedUser } from "./SavedLogins";
-import { useUser } from "../../common/usercontext/usercontext";
+import { useUser } from "../../common/usercontext/UserContext";
 import "./Login.css";
 
-// Initial hardcoded saved users (until Clerk implementation in Sprint 5)
+// Initial hardcoded saved users (used only if no cached users exist)
 const INITIAL_SAVED_USERS: SavedUser[] = [
   { id: "1", username: "SpookyWarrior", email: "warrior@haunted.com" },
   { id: "2", username: "ShadowMage", email: "mage@darkness.com" },
@@ -17,8 +17,31 @@ function Login() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [savedUsers, setSavedUsers] = useState<SavedUser[]>(INITIAL_SAVED_USERS);
+  const [savedUsers, setSavedUsers] = useState<SavedUser[]>([]);
   const [successMessage, setSuccessMessage] = useState("");
+
+  // Load saved users from localStorage on mount
+  useEffect(() => {
+    const storedUsers = localStorage.getItem("savedUsers");
+    if (storedUsers) {
+      try {
+        setSavedUsers(JSON.parse(storedUsers));
+      } catch (error) {
+        console.error("Error loading saved users:", error);
+        setSavedUsers(INITIAL_SAVED_USERS);
+      }
+    } else {
+      // Use initial users if nothing in localStorage
+      setSavedUsers(INITIAL_SAVED_USERS);
+    }
+  }, []);
+
+  // Save to localStorage whenever savedUsers changes
+  useEffect(() => {
+    if (savedUsers.length > 0) {
+      localStorage.setItem("savedUsers", JSON.stringify(savedUsers));
+    }
+  }, [savedUsers]);
 
   const handleSavedUserSelect = (selectedUsername: string, selectedEmail: string) => {
     setUsername(selectedUsername);
@@ -27,7 +50,7 @@ function Login() {
 
   const handleDeleteUser = (userId: string) => {
     setSavedUsers(prev => prev.filter(user => user.id !== userId));
-    setSuccessMessage("🗑️ User removed from saved logins");
+    setSuccessMessage("User removed from saved logins");
     setTimeout(() => setSuccessMessage(""), 2000);
   };
 
@@ -42,14 +65,14 @@ function Login() {
       );
 
       if (userExists) {
-        setSuccessMessage("⚠️ User with this username or email already exists!");
+        setSuccessMessage("User with this username or email already exists!");
         setTimeout(() => setSuccessMessage(""), 3000);
         return;
       }
 
       // Add new user to saved logins
       const newUser: SavedUser = {
-        id: Date.now().toString(),
+        id: crypto.randomUUID(), // More reliable than Date.now()
         username,
         email,
       };
@@ -57,7 +80,7 @@ function Login() {
       setSavedUsers(prev => [...prev, newUser]);
       
       // Show success message
-      setSuccessMessage("✨ Account created successfully! Switch to Login to use it.");
+      setSuccessMessage("Account created successfully! Switch to Login to use it.");
       
       // Clear form and reset after 2 seconds
       setTimeout(() => {
@@ -77,10 +100,10 @@ function Login() {
       if (userExists) {
         // Set username in global state
         setGlobalUsername(username);
-        setSuccessMessage("✅ Login successful!");
+        setSuccessMessage("Login successful!");
         setTimeout(() => setSuccessMessage(""), 2000);
       } else {
-        setSuccessMessage("❌ Invalid credentials!");
+        setSuccessMessage("Invalid credentials!");
         setTimeout(() => setSuccessMessage(""), 3000);
       }
     }
@@ -101,7 +124,7 @@ function Login() {
       </div>
 
       {successMessage && (
-        <div className={`success-message ${successMessage.includes('❌') || successMessage.includes('⚠️') ? 'error' : ''}`}>
+        <div className={`success-message ${successMessage.includes('Invalid') || successMessage.includes('User with this username or email already exists!') ? 'error' : ''}`}>
           {successMessage}
         </div>
       )}

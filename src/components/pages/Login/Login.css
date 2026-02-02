@@ -1,13 +1,11 @@
 @font-face {
   font-family: 'Enchanted Land';
   src: url('https://www.dafont.com/enchanted-land.font');
-  /* Note: In production, download and host fonts locally */
 }
 
 @font-face {
   font-family: 'Nobility Casual';
   src: url('https://www.dafont.com/nobility-casual.font');
-  /* Note: In production, download and host fonts locally */
 }
 
 .login-container {
