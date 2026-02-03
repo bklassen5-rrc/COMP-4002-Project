@@ -6,11 +6,12 @@ export interface SavedUser {
   id: string;
   username: string;
   email: string;
+  password: string;
 }
 
 interface SavedLoginsProps {
   savedUsers: SavedUser[];
-  onSelectUser: (username: string, email: string) => void;
+  onSelectUser: (username: string, email: string, password: string) => void;
   onDeleteUser: (userId: string) => void;
 }
 
@@ -20,7 +21,7 @@ function SavedLogins({ savedUsers, onSelectUser, onDeleteUser }: SavedLoginsProp
 
   const handleSelectUser = (user: SavedUser) => {
     setSelectedUser(user);
-    onSelectUser(user.username, user.email);
+    onSelectUser(user.username, user.email, user.password);
     setIsOpen(false);
   };
 

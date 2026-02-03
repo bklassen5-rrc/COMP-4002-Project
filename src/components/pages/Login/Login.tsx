@@ -5,10 +5,10 @@ import "./Login.css";
 
 // Initial hardcoded saved users (used only if no cached users exist)
 const INITIAL_SAVED_USERS: SavedUser[] = [
-  { id: "1", username: "SpookyWarrior", email: "warrior@haunted.com" },
-  { id: "2", username: "ShadowMage", email: "mage@darkness.com" },
-  { id: "3", username: "PhantomRogue", email: "rogue@phantom.com" },
-  { id: "4", username: "GhostKnight", email: "knight@spectral.com" },
+  { id: "1", username: "SpookyWarrior", email: "warrior@haunted.com", password: "warrior123" },
+  { id: "2", username: "ShadowMage", email: "mage@darkness.com", password: "shadow123" },
+  { id: "3", username: "PhantomRogue", email: "rogue@phantom.com", password: "phantom123" },
+  { id: "4", username: "GhostKnight", email: "knight@spectral.com", password: "ghost123" },
 ];
 
 function Login() {
@@ -43,9 +43,10 @@ function Login() {
     }
   }, [savedUsers]);
 
-  const handleSavedUserSelect = (selectedUsername: string, selectedEmail: string) => {
+  const handleSavedUserSelect = (selectedUsername: string, selectedEmail: string, selectedPassword: string) => {
     setUsername(selectedUsername);
     setEmail(selectedEmail);
+    setPassword(selectedPassword);
   };
 
   const handleDeleteUser = (userId: string) => {
@@ -75,6 +76,7 @@ function Login() {
         id: crypto.randomUUID(), // More reliable than Date.now()
         username,
         email,
+        password,
       };
 
       setSavedUsers(prev => [...prev, newUser]);
@@ -94,7 +96,8 @@ function Login() {
       // Login logic
       const userExists = savedUsers.find(
         user => user.username.toLowerCase() === username.toLowerCase() && 
-                user.email.toLowerCase() === email.toLowerCase()
+                user.email.toLowerCase() === email.toLowerCase() &&
+                user.password === password
       );
 
       if (userExists) {
@@ -168,12 +171,6 @@ function Login() {
           {signup ? "Login" : "Sign Up"}
         </button>
       </p>
-
-      {!signup && savedUsers.length > 4 && (
-        <p className="user-count">
-          {savedUsers.length} Users Registered
-        </p>
-      )}
     </div>
   );
 }
