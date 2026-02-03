@@ -33,17 +33,20 @@ function BattleComplete() {
                 <p>Experience gained: {experienceGained}</p>
                 <div>
                     <h3>Items Dropped</h3>
-                    <p>Select the ones you'd like to discard.</p>
+                    <p>Select the ones you'd like to discard:</p>
+                    <br></br>
                    <ul>
                         {
                             itemsDropped.map((items) => {
+
                                 return(
                                     <li key={items.id}
+                                     className={selectedItems.filter(selectedItem => selectedItem.id === items.id).length > 0 ? "selected" : ""}
                                         onClick={() => {
                                             if(selectedItems.filter(selectedItem => selectedItem.id === items.id).length > 0 ){
-                                                setSelectedItems(oldItems => [...oldItems, items])
+                                                setSelectedItems(oldList => oldList.filter(filteredItems => filteredItems.id != items.id));
                                             } else {
-                                                setItemsDropped(oldList => oldList.filter(filteredItems => filteredItems.id != items.id));
+                                                setSelectedItems(oldItems => [...oldItems, items])
                                             }
                                         }}
                                     >
