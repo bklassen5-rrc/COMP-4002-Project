@@ -3,6 +3,7 @@
   position: relative;
   width: 100%;
   margin-bottom: 1rem;
+  margin-left: -10px;
 }
 
 .saved-logins-toggle {
@@ -51,6 +52,8 @@
   z-index: 10;
   animation: slideDown 0.3s ease;
   border-radius: 0 0 4px 4px;
+  margin-left: 10px;
+  margin-right: -10px;
 }
 
 .saved-login-item {
