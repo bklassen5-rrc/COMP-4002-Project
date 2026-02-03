@@ -13,13 +13,14 @@ function BattleComplete() {
     // placeholder data
 
     const experienceGained = 150
+    const goldEarned = 312980
     const [itemsDropped, setItemsDropped] = useState([
         {id: 1, value: "Minor Health Potion"},
         {id: 2, value: "Broken Straight Sword"},
         {id: 3, value: "A rusted nail"},
         {id: 4, value: "An all-seeing eyeball"}
     ])
-    
+
     const [itemsDiscarded, setItemsDiscarded] = useState<{id: number, value: string}[]>([])
     const[selectedItems, setSelectedItems] = useState<{id: number, value: string}[]>([])
     const[discardConfirmation, setDiscardConfirmation] = useState(false)
@@ -31,6 +32,7 @@ function BattleComplete() {
                 {/* <h1>{victoryAchieved ? "VICTORY!" : "DEFEAT"}</h1> */}
                 <h1>VICTORY!</h1>
                 <p>Experience gained: {experienceGained}</p>
+                <p>Gold Earned: {goldEarned}</p>
                 <div>
                     <h3>Items Dropped</h3>
                     <br></br>
@@ -74,12 +76,7 @@ function BattleComplete() {
                                     );
                                 })}
                             </ul>
-                                <button onClick={() => {
-                                    setDiscardConfirmation(false)
-                                }}>
-                                    Cancel
-                                </button>
-                                <button onClick={() => {
+                            <button onClick={() => {
                                     setItemsDiscarded(oldItems => [...oldItems, ...selectedItems])
                                     setItemsDropped(oldList =>
                                         oldList.filter(item =>
@@ -92,6 +89,12 @@ function BattleComplete() {
                                 }}>
                                     Confirm
                                 </button>
+                                <button onClick={() => {
+                                    setDiscardConfirmation(false)
+                                }}>
+                                    Cancel
+                                </button>
+                             
                     </div>
                     )}
 
