@@ -1,6 +1,14 @@
 import { useState } from "react";
 import './battleComplete.css'
 
+
+// flow
+// items appear
+// click item(s
+// popup saying "are you sure you want to discard?")
+//"confirm"
+// items removed
+
 function BattleComplete() {
     // placeholder data
 
@@ -12,7 +20,11 @@ function BattleComplete() {
         {id: 3, value: "A rusted nail"},
         {id: 4, value: "An all-seeing eyeball"}
     ])
+    // items that are 'dropped' after the fight
     const [itemsDiscarded, setItemsDiscarded] = useState<{id: number, value: string}[]>([])
+    // need another state to track items that player doesn't want anymore
+    const[selectedItems, setSelectedItems] = useState<{id: number, value: string}[]>([])
+    
     return(
         <div className="postBattleOverlay">
             <div className="postBattleModal">
@@ -28,8 +40,11 @@ function BattleComplete() {
                                 return(
                                     <li key={items.id}
                                         onClick={() => {
-                                            setItemsDropped(oldList => oldList.filter(filteredItems => filteredItems.id != items.id));
-                                            setItemsDiscarded(oldItems => [...oldItems, items])
+                                            if(selectedItems.filter(selectedItem => selectedItem.id === items.id).length > 0 ){
+                                                setSelectedItems(oldItems => [...oldItems, items])
+                                            } else {
+                                                setItemsDropped(oldList => oldList.filter(filteredItems => filteredItems.id != items.id));
+                                            }
                                         }}
                                     >
                                         {items.value}
