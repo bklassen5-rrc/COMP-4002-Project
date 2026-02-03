@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
 import Landing from "./components/pages/Landing";
-import Login from "./components/pages/login/Login";
+import Login from "./components/pages/Login/Login";
 import BattleScreen from "./components/pages/battlescreen/Battlescreen";
 import { UserProvider } from "./components/common/usercontext/UserContext";
 import BattleComplete from "./components/pages/battlecomplete/battleComplete";
