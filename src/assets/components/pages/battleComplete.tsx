@@ -1,14 +1,6 @@
 import { useState } from "react";
 import './battleComplete.css'
 
-
-// flow
-// items appear
-// click item(s
-// popup saying "are you sure you want to discard?")
-//"confirm"
-// items removed
-
 function BattleComplete() {
     // placeholder data
 
@@ -25,6 +17,10 @@ function BattleComplete() {
     const[selectedItems, setSelectedItems] = useState<{id: number, value: string}[]>([])
     const[discardConfirmation, setDiscardConfirmation] = useState(false)
     const[itemsKept, setItemsKept] = useState(false)
+
+    const isItemSelected = (itemId: number) => {
+        return selectedItems.filter(selectedItem => selectedItem.id === itemId).length > 0
+    }
     
     return(
         <div className="postBattleOverlay">
@@ -42,9 +38,9 @@ function BattleComplete() {
 
                                 return(
                                     <li key={items.id}
-                                     className={selectedItems.filter(selectedItem => selectedItem.id === items.id).length > 0 ? "selected" : ""}
+                                     className={isItemSelected(items.id) ? "selected" : ""}
                                         onClick={() => {
-                                            if(selectedItems.filter(selectedItem => selectedItem.id === items.id).length > 0 ){
+                                            if(isItemSelected(items.id)){
                                                 setSelectedItems(oldList => oldList.filter(filteredItems => filteredItems.id != items.id));
                                             } else {
                                                 setSelectedItems(oldItems => [...oldItems, items])
@@ -61,6 +57,9 @@ function BattleComplete() {
                     <br></br>
                     <button onClick={() =>{
                         setDiscardConfirmation(true)
+                        // useless variable for fixing vercel deployment
+                        let uselessVar = itemsDiscarded
+                        uselessVar = uselessVar
                     }}>
                         Discard Items
                     </button>
@@ -79,13 +78,12 @@ function BattleComplete() {
                             <button onClick={() => {
                                     setItemsDiscarded(oldItems => [...oldItems, ...selectedItems])
                                     setItemsDropped(oldList =>
-                                        oldList.filter(item =>
-                                            selectedItems.filter(selectedItem => selectedItem.id === item.id).length===0
-                                        )
+                                        oldList.filter(item => !isItemSelected(item.id))
                                     )
                                     setSelectedItems([])
                                     setItemsKept(true)
                                     setDiscardConfirmation(false)
+                                    
                                 }}>
                                     Confirm
                                 </button>
