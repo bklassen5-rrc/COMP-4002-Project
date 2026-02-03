@@ -1,14 +1,18 @@
-import { Link } from "react-router-dom";
+import UserAvatar from "./usercontext/Useravatar";
+import { NavLink } from "react-router-dom";
 
 function Header() {
   return (
-    <header style={{ padding: "1rem", background: "#282c34", color: "white" }}>
+    <header style={{ padding: "1rem", background: "#282c34", color: "white", display: "flex", alignItems: "center" }}>
       <nav style={{ display: "flex", gap: "1rem" }}>
-        <Link to="/" style={{ color: "white" }}>Home</Link>
-        <Link to="/login" style={{ color: "white" }}>Login</Link>
-        <Link to="/battle" style={{ color: "white" }}>BattleScreen</Link>
-        <Link to="/victory" style={{ color: "white" }}>Victory</Link>
+        <NavLink to="/" style={{ color: "white" }}>Home</NavLink>
+        <NavLink to="/login" style={{ color: "white" }}>Login</NavLink>
+        <NavLink to="/battle" style={{ color: "white" }}>BattleScreen</NavLink>
+        <NavLink to="/victory" style={{ color: "white" }}>Victory</NavLink>
       </nav>
+      <div style={{ marginLeft: "auto" }}>
+        <UserAvatar />
+      </div>
     </header>
   );
 }
