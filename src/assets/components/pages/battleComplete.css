@@ -62,3 +62,17 @@ ul {
     font-size: 15px;
 
 }
+
+.selected {
+    text-decoration: line-through;
+    opacity: 0.4;
+}
+
+button {
+    font-family: 'Nobility Casual', sans-serif;
+    margin-top: 45px;
+    width: 100px;
+    height: auto;
+    background-color:#506179 ;
+    margin: 10px;
+}
