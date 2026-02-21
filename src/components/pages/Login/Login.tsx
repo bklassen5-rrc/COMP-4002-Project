@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SavedLogins, { type SavedUser } from "./SavedLogins";
+import SavedLogins from "./SavedLogins";
 import { useUser } from "../../common/usercontext/UserContext";
 import useAuth from "../../../hooks/useAuth";
 import "./Login.css";
