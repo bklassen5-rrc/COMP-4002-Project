@@ -4,7 +4,7 @@ import * as BattleLogService from '../services/battleLogService';
 
 /**
  * This is a custom hook, which is defined when we want to reuse presentation
- * logic. They are often built around specific groups of data or behavior.
+ * logic. They are often built around specific groups of data or behaviour.
  * 
  * You can think of this hook as an extra layer of functionality that we've 
  * added to a State that is an array of BattleLogMessage[].
@@ -42,14 +42,24 @@ export function useBattleLog(dependencies: unknown[]) {
     };
 
     /**
+     * Initialize the battle on first mount
+     */
+    const initializeBattle = async () => {
+        try {
+            await BattleLogService.startNewBattle();
+            await fetchMessages();
+        } catch (errorObject) {
+            setError(`${errorObject}`);
+        }
+    };
+
+    /**
      * Handle attack action
      * Triggers attack business logic and updates UI
-     * @param weaponType - The weapon being used (default: 'sword)
-     * @param damage - The damage amount (default: 15)
      */
-    const handleAttack = async (weaponType: string = 'sword', damage: number = 15) => {
+    const handleAttack = async () => {
         try {
-            await BattleLogService.processAttackAction(weaponType, damage);
+            await BattleLogService.processAttackAction();
             // re-fetch messages to update our state once the operation is finished
             await fetchMessages();
         } catch (errorObject) {
@@ -60,12 +70,10 @@ export function useBattleLog(dependencies: unknown[]) {
     /**
      * Handle skill action
      * Triggers skill business logic and updates UI
-     * @param skillName - The skill being used (default: 'Fireball)
-     * @param damage - The damage amount (default: 25)
      */
-    const handleSkill = async (skillName: string = 'Fireball', damage: number = 25) => {
+    const handleSkill = async () => {
         try {
-            await BattleLogService.processSkillAction(skillName, damage);
+            await BattleLogService.processSkillAction();
             // re-fetch messages to update our state once the operation is finished
             await fetchMessages();
         } catch (errorObject) {
@@ -102,14 +110,13 @@ export function useBattleLog(dependencies: unknown[]) {
     };
 
     /**
-     * When this hook is first invoked, fetchMessages() immediately runs, getting
-     * all messages from its service.
+     * When this hook is first invoked, initialize the battle.
      * 
      * If any of the dependencies that this hook received change in value,
-     * it will re-run the fetch automatically.
+     * it will re-initialize the battle.
      */
     useEffect(() => {
-        fetchMessages();
+        initializeBattle();
     }, [...dependencies]);
 
     /**

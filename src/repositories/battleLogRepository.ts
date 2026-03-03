@@ -80,5 +80,6 @@ export async function deleteMessage(messageId: number): Promise<BattleLogMessage
  * @returns void
  */
 export async function clearAllMessages(): Promise<void> {
-    battleLogData.length = 0; // Clear the array
+    // Clear the array
+    battleLogData.length = 0; 
 }
